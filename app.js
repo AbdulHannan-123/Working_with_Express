@@ -1,11 +1,18 @@
 const http = require('http');
-const routes = require('./routes')
 
+const express = require('express'); 
 
-// function rqListener(req , res) {
-    
-// }
+const app = express();  // the above exress exports a funtion here, so we use it with app variable
 
-cons server = http.createServer(routes.handler);
+app.use((req, res, next) => {  // it allow us ko add a middleware func
+    console.log('In the middleware!');
+    next(); // allow the request to continue to the next middleware in line
+});  
+
+app.use((req, res, next) => {
+    console.log('In another middleware!');
+}); 
+
+const server = http.createServer(app);
 
 server.listen(3000);
